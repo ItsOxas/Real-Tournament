@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 500171308}
   - component: {fileID: 500171307}
   - component: {fileID: 500171306}
+  - component: {fileID: 500171310}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -418,6 +419,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &500171310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500171305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1acabc48c8a3894c8ffa63feacf0306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 100
 --- !u!1 &569863612
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,11 +527,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 569863612}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e9442f60b174349a6fbd0a718b1d01, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b82e67bdefb74908b25aef41ee0f0ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1549347878585329129, guid: 1d12445e3d74ce04eb491f09c6b8eecb,
     type: 3}
+  ammo: 1000
+  maxAmmo: 1000
+  isReloading: 0
+  isAutoFire: 1
+  fireInterval: 0.5
+  fireCooldown: 0
 --- !u!1 &1190047141
 GameObject:
   m_ObjectHideFlags: 0

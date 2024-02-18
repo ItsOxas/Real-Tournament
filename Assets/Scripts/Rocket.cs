@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class Rocket : MonoBehaviour
 {
-    public float speed = 20;
-    public ParticleSystem explosion;
+	public float speed = 20;
 
-    void Start()
-    {
-        Destroy(gameObject, 3f);
-    }
+	void Start()
+	{
+		Destroy(gameObject,3f);
+	}
 
-    void Update()
-    {
-        transform.position += transform.forward * speed * Time.deltaTime;
-    }
+	void Update()
+	{
+		transform.position += transform.forward * speed * Time.deltaTime;
+	}
 
-    void OnCollisionEnter(Collision other)
-    {
-        Destroy(gameObject);
-        Instantiate(explosion);
-        
-    }
+	void OnCollisionEnter(Collision other)
+	{
+		Destroy(gameObject);
+		var health = other.gameObject.GetComponent<Health>();
+
+			if (health != null)
+			{
+				health.Damage(10);
+			}
+	}
 }
-
