@@ -11,7 +11,7 @@ public class Rocket : MonoBehaviour
 
 	void Start()
 	{
-		Destroy(gameObject,3f);
+		Destroy(gameObject, 3f);
 	}
 
 	void Update()
@@ -21,22 +21,21 @@ public class Rocket : MonoBehaviour
 
 	void OnCollisionEnter(Collision other)
 	{
-        if (bounces == 0)
-        {
+		if (bounces == 0)
+		{
 			Destroy(gameObject);
 			Instantiate(explosionPrefab, transform.position, transform.rotation);
 		}
-        else
-        {
+		else
+		{
 			transform.forward = other.contacts[0].normal;
 		}
-		var obj = Instantiate(hitPrefab, transform.position, transform.rotation);
-		obj.transform.position = other.contacts[0].point + transform.forward * 0.2f;
+			var obj = Instantiate(hitPrefab, transform.position, transform.rotation);
+			obj.transform.position = other.contacts[0].point + transform.forward * 0.2f;
 
-		bounces--;
+			bounces--;
 
-
-		var health = other.gameObject.GetComponent<Health>();
+			var health = other.gameObject.GetComponent<Health>();
 
 			if (health != null)
 			{
@@ -44,3 +43,4 @@ public class Rocket : MonoBehaviour
 			}
 	}
 }
+

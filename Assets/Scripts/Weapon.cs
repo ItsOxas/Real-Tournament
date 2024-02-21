@@ -1,7 +1,11 @@
 using UnityEngine;
+using TMPro;
+using UnityEngine.Events;
 
 public class Weapon : MonoBehaviour
 {
+	public UnityEvent onRightClick;
+	
 	public GameObject bulletPrefab;
 	public int ammo;
 	public int maxAmmo = 10;
@@ -9,14 +13,25 @@ public class Weapon : MonoBehaviour
 	public bool isAutoFire;
 	public float fireInterval = 0.5f;
 	public float fireCooldown;
+	public float recoilAngle;
+	public int bulletsPerShot = 1;
+	public TMP_Text ammoText;
+
 
 	void Update()
 	{
+		ammoText.text = ammo.ToString() + '/' + maxAmmo;
+		
 		// manual mode
 		if (!isAutoFire && Input.GetKeyDown(KeyCode.Mouse0))
 		{
 			Shoot();
 		}
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+			onRightClick.Invoke();
+        }
 
 		// auto mode
 		if (isAutoFire && Input.GetKey(KeyCode.Mouse0))
@@ -30,9 +45,10 @@ public class Weapon : MonoBehaviour
 		}
 
 		fireCooldown -= Time.deltaTime;
+
 	}
 
-	void Shoot()
+	public void Shoot()
 	{
 		if (isReloading) return;
 		if (ammo <= 0)
@@ -43,9 +59,18 @@ public class Weapon : MonoBehaviour
 		if (fireCooldown > 0) return;
 
 
-		ammo--;
+		ammo--;	
 		fireCooldown = fireInterval;
-		Instantiate(bulletPrefab, transform.position, transform.rotation);
+        for (int i = 0; i < bulletsPerShot; i++)
+        {
+			var bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+			var offsetX = Random.Range(-recoilAngle, recoilAngle);
+			var offsetY = Random.Range(-recoilAngle, recoilAngle);
+			bullet.transform.eulerAngles += new Vector3(offsetX, offsetY, 0);
+		}
+
+
+
 	}
 
 
