@@ -7,11 +7,11 @@ public class Rocket : MonoBehaviour
 	public float speed = 20;
 	public GameObject explosionPrefab;
 	public GameObject hitPrefab;
-	public int bounces = 0;
+	public int bounces;
 
 	void Start()
 	{
-		Destroy(gameObject, 3f);
+		Destroy(gameObject,3f);
 	}
 
 	void Update()
@@ -24,23 +24,26 @@ public class Rocket : MonoBehaviour
 		if (bounces == 0)
 		{
 			Destroy(gameObject);
-			Instantiate(explosionPrefab, transform.position, transform.rotation);
+			Instantiate(explosionPrefab,transform.position,transform.rotation);
 		}
 		else
 		{
 			transform.forward = other.contacts[0].normal;
 		}
-			var obj = Instantiate(hitPrefab, transform.position, transform.rotation);
-			obj.transform.position = other.contacts[0].point + transform.forward * 0.2f;
 
-			bounces--;
+		if(!other.gameObject.CompareTag("Enemy"))
+		{
+			var obj = Instantiate(hitPrefab,transform.position,transform.rotation);
+			obj.transform.forward = other.contacts[0].normal;
+			obj.transform.position = other.contacts[0].point + transform.forward * -0.05f;
+		}
 
-			var health = other.gameObject.GetComponent<Health>();
+		bounces--;
 
-			if (health != null)
-			{
-				health.Damage(10);
-			}
+		var health = other.gameObject.GetComponent<Health>();
+		if( health != null)
+		{
+			health.Damage(10);
+		}
 	}
 }
-
