@@ -1,25 +1,19 @@
-using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class PlayerUI : MonoBehaviour
+public class PlayerUi : MonoBehaviour
 {
     public TMP_Text healthText;
     public Health health;
+
     public TMP_Text ammoText;
-    public Weapon weapon;
+    public Weapon ammo;
 
-    void Start()
-    {
-        UpdateUI();
-        health.onDamage.AddListener(UpdateUI);
-        weapon.onShoot.AddListener(UpdateUI);
-        weapon.onReload.AddListener((ended) => UpdateUI());
-    }
-
-
-    void UpdateUI()
+    private void Update()
     {
         healthText.text = health.health.ToString();
-        ammoText.text = weapon.ammo.ToString();
+        ammoText.text = ammo.ammo.ToString();
     }
 }
